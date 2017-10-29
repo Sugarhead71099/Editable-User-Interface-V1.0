@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="HTML,CSS,JavaScript,Jquery,PHP" />
+    <meta name="author" content="Braijon Glover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://use.fontawesome.com/c42ad8a8d4.js"></script>
+
+    <!--Use 1 of these 2 bootstrap versions(3.3.7 || 4.0.0alpha)-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Candal" rel='stylesheet'>
+    <title>Editable User Interface</title>
+</head>
+<body>
+
+
+    <!--Container For This Block of HTML-->
+    <div class="container text-center" id="pageContainer">
+
+
+        <!--Navbar (Containing Edit Tools)-->
+        <nav id="creationTools" class="navbar navbar-toggleable-md navbar-light fixed-top" style="background-color: #c7e3f6;">
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="margin-top: 20px;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0)">
+                <img src="edit-icon.png" width="50" height="50" alt="" />
+            </a>
+
+            <div class="collapse navbar-collapse nav-tabs" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <button id="newSection" class="nav-link">New Section</button>
+                    </li>
+                    <li class="nav-item">
+                        <button id="addTextbox" class="nav-link">Textbox</button>
+                    </li>
+                    <li>
+                        <button id="addImage" class="nav-link">Image</button>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" id="messageTypes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Message Types
+                        </button>
+                        <div id="messageTypesDropdown" class="dropdown-menu" aria-labelledby="messageTypes">
+                            <button id="importantMessage" class="dropdown-item" href="#">IMPORTANT Message</button>
+                            <button id="noteMessage" class="dropdown-item" href="#">NOTE Message</button>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" id="tableOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Table Options
+                        </button>
+                        <div id="tableOptionsDropdown" class="dropdown-menu" aria-labelledby="tableOptions">
+                            <button id="createTable" class="dropdown-item" href="#"  data-toggle="modal" data-target="#tableForm">Create Table</button>
+                            <button id="tableRow" class="dropdown-item" href="#">Table Row</button>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" id="listTypes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            List Types
+                        </button>
+                        <div id="listTypesDropdown" class="dropdown-menu" aria-labelledby="listTypes">
+                            <button id="numericList" class="dropdown-item" href="#">Numeric List</button>
+                            <!--<button id="alphabeticList" class="dropdown-item" href="#">Alphabetic List</button>-->
+                            <button id="bulletList" class="dropdown-item" href="#">Bullet List</button>
+                        </div>
+                    </li>
+                </ul>
+                <button class="btn btn-primary" id="previewButton">Preview</button>
+            </div>
+        </nav>
+
+        <div class="clearfix"></div>
+
+
+        <!--Accordion (Containing Sections)-->
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="card">
+                <div class="card-header" role="tab">
+                    <h5 class="mb-0">
+                        <a contenteditable class="collapsed header" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            <!-- <textarea class="col-lg-4 text-center new-section"></textarea> -->
+                        </a>
+                    </h5>
+                    <div class="options-container col-lg-3 pull-right">
+                        <span class="pull-right option-icon col-lg-1 section-delete"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-1 section-up"><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-1 section-down"><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1">
+                    <div class="card-block">
+
+                        
+
+                    </div>
+                </div>
+            </div>
+
+        </ul>
+
+
+        <!-- New Table Form Modal -->
+        <div class="modal fade" id="tableForm" tabindex="-1" role="dialog" aria-labelledby="tableFormLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tableFormLabel">Create A Table</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                
+                        <form id="newTableForm">
+                            <div class="form-group">
+                                <label for="newTableRows">Rows</label>
+                                <input type="text" class="form-control" id="newTableRows" value="3" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="newTableColumns">Columns</label>
+                                <input type="text" class="form-control" id="newTableColumns" value="2" disabled>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button id="tableSubmit" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- New Image Form Modal -->
+        <div class="modal fade" id="imageForm" tabindex="-1" role="dialog" aria-labelledby="imageFormLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageFormLabel">Add An Image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                
+                        <form id="newImageForm">
+                            <div class="form-group">
+                                <label for="newImageWidth">Width</label>
+                                <input type="text" class="form-control" id="newImageWidth" placeholder="Input Width... (Default: 20)">
+                            </div>
+                            <div class="form-group">
+                                <label for="newImageHeight">Height</label>
+                                <input type="text" class="form-control" id="newImageHeight" placeholder="Input Height... (Recommended: Leave blank for best results)">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button id="imageSubmit" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Preview Modal -->
+        <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #b0d7f0;">
+                        <h5 class="modal-title" id="previewModalLabel">Preview</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="previewModalBody" style="background: url(HomePage.jpg) repeat center center fixed;">
+                
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Text Edit Popover (Card) -->
+        <div class="card" id="textEditPopover">
+            <div class="card-header row">
+                <h3 class="col-lg-9" style="padding-left: 15.5rem;">Text Edit</h1>
+                <span class="pull-right option-icon col-lg-2 text-edit-popover-close"><i class="fa fa-close" aria-hidden="true"></i></span>
+            </div>
+            <div class="card-block col-lg-12">
+
+                <div class="form-group col-lg-4">
+                    <h4>Font Family / Font Size</h4>
+                    <div class="row" id="fontFamilyContainer">
+                        <div class="col-lg-6" id="fontSizeContaier">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle font-family-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Monospace
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <button class="dropdown-item font-family-option">Candal</button>
+                                        <button class="dropdown-item font-family-option">Times New Roman</button>
+                                        <button class="dropdown-item font-family-option">Calibri</button>
+                                        <button class="dropdown-item font-family-option">Arial</button>
+                                        <button class="dropdown-item font-family-option">Monospace</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="fontSizeContainer">
+                            <div class="input-group">
+                                <input type="number" class="form-control font-size-input" min="10" max="60" aria-label="Font size selector (number)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-2">
+                    <h4>Text-Color</h4>
+                    <input type="color" class="text-color form-control">
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <h4>Text-Alignment</h4>
+                    <div class="row col-lg-12" id="textAlignmentContainer">
+                        <span class="pull-right option-icon col-lg-2 text-align" data-value="justify" onmousedown="event.preventDefault();" onclick="document.execCommand('justifyFull', false, null); document.execCommand('styleWithCSS', false, true);"><i class="fa fa-align-justify" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-2 text-align" data-value="left" onmousedown="event.preventDefault();" onclick="document.execCommand('justifyLeft', false, null); document.execCommand('styleWithCSS', false, true);"><i class="fa fa-align-left" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-2 text-align" data-value="center" onmousedown="event.preventDefault();" onclick="document.execCommand('justifyCenter', false, null); document.execCommand('styleWithCSS', false, true);"><i class="fa fa-align-center" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-2 text-align" data-vlue="right" onmousedown="event.preventDefault();" onclick="document.execCommand('justifyRight', false, null); document.execCommand('styleWithCSS', false, true);"><i class="fa fa-align-right" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <h4>Text-Style</h4>
+                    <div class="row col-lg-12" id="textStyleContainer">
+                        <span class="pull-right option-icon col-lg-2 text-style" data-value="bold" onmousedown="event.preventDefault();" onclick="document.execCommand('bold', false, null);"><i class="fa fa-bold" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-2 text-style" data-value="underline" onmousedown="event.preventDefault();" onclick="document.execCommand('underline', false, null);"><i class="fa fa-underline" aria-hidden="true"></i></span>
+                        <span class="pull-right option-icon col-lg-2 text-style" data-value="italic" onmousedown="event.preventDefault();" onclick="document.execCommand('italic', false, null);"><i class="fa fa-italic" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
